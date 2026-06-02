@@ -8,7 +8,15 @@ export class PostService {
     constructor(private prismaService : PrismaService){}
 
     async getPosts(){
-        return this.prismaService.post.findMany()
+        return this.prismaService.post.findMany({
+            include: {
+                author:{
+                    select:{
+                        name: true
+                    }
+                }
+            }
+        })
     }
 
     async addPost(data: AddPostDTO){
