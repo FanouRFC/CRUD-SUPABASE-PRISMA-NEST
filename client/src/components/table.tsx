@@ -1,4 +1,5 @@
 import type { post, user } from "../types/tableType";
+import { Trash, SquarePen } from "lucide-react";
 
 type MyTableProps = {
   header: string[];
@@ -29,6 +30,12 @@ export default function MyTable({
                 <td className="border px-2">{u.id}</td>
                 <td className="border px-2">{u.name}</td>
                 <td className="border px-2">{u.email}</td>
+                <td className="border px-2 ">
+                  <div className="flex flex-row gap-1">
+                    <Trash className="cursor-pointer" />
+                    <SquarePen className="cursor-pointer" />
+                  </div>
+                </td>
               </tr>
             );
           }
@@ -38,8 +45,15 @@ export default function MyTable({
             <tr key={p.id}>
               <td className="border px-2">{p.id}</td>
               <td className="border px-2">{p.title}</td>
-              <td className="border px-2">{p.author?.name ?? ""}</td>
+              <td className="border px-2">{p.content}</td>
               <td className="border px-2">{p.published ? "Oui" : "Non"}</td>
+              <td className="border px-2">{p.author.name ?? ""}</td>
+              <td className="border px-2 flex">
+                <div className="flex flex-row gap-1">
+                  <Trash className="cursor-pointer" />
+                  <SquarePen className="cursor-pointer" />
+                </div>
+              </td>
             </tr>
           );
         })}

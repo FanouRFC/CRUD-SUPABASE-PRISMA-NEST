@@ -9,5 +9,7 @@ export type post = {
     title: string,
     content: string,
     published: boolean,
-    author: user
+    author: {
+        name: string
+    }
 }
