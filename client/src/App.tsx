@@ -26,19 +26,34 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <p className="">Hello World</p>
-      <MyTable
-        header={["id", "name", "email", "action"]}
-        contentType="user"
-        content={user}
-      />
-
-      <MyTable
-        header={["id", "title", "content", "published", "author", "action"]}
-        contentType="post"
-        content={post}
-      />
+    <div className="flex ">
+      <div className="w-full flex justify-center">
+        <div className="flex flex-col w-full items-center gap-5 mx-50">
+          <div className="w-full">
+            <p className="text-4xl font-medium text-center">User</p>
+            <MyTable
+              header={["id", "name", "email", "action"]}
+              contentType="user"
+              content={user}
+            />
+          </div>
+          <div className="w-full">
+            <p className="text-4xl font-medium text-center">Post</p>
+            <MyTable
+              header={[
+                "id",
+                "title",
+                "content",
+                "published",
+                "author",
+                "action",
+              ]}
+              contentType="post"
+              content={post}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

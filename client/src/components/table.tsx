@@ -13,7 +13,7 @@ export default function MyTable({
   content,
 }: MyTableProps) {
   return (
-    <table className="table-fixed border-collapse ">
+    <table className="table-auto border-collapse w-full ">
       <thead>
         <tr>
           {header.map((el) => (
@@ -30,7 +30,7 @@ export default function MyTable({
                 <td className="border px-2">{u.id}</td>
                 <td className="border px-2">{u.name}</td>
                 <td className="border px-2">{u.email}</td>
-                <td className="border px-2 ">
+                <td className="border px-2 flex justify-center">
                   <div className="flex flex-row gap-1">
                     <Trash className="cursor-pointer" />
                     <SquarePen className="cursor-pointer" />
@@ -48,7 +48,7 @@ export default function MyTable({
               <td className="border px-2">{p.content}</td>
               <td className="border px-2">{p.published ? "Oui" : "Non"}</td>
               <td className="border px-2">{p.author.name ?? ""}</td>
-              <td className="border px-2 flex">
+              <td className="border px-2 flex justify-center">
                 <div className="flex flex-row gap-1">
                   <Trash className="cursor-pointer" />
                   <SquarePen className="cursor-pointer" />
