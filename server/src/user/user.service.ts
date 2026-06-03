@@ -10,6 +10,17 @@ export class UserService {
         return this.prismaService.user.findMany()
     }
 
+    async getUserByName(data: string){
+        return this.prismaService.user.findMany({
+            where:{
+                name:{
+                    contains: data,
+                    mode: "insensitive"
+                }
+            }
+        })
+    }
+
     async createUser(data: CreateUserDTO){
         return this.prismaService.user.create({
             data:data
