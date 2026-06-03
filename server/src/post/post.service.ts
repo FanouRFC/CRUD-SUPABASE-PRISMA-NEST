@@ -19,6 +19,17 @@ export class PostService {
         })
     }
 
+    async getPostByTitle(data: string){
+        return this.prismaService.post.findMany({
+            where:{
+                title:{
+                    contains: data,
+                    mode: "insensitive"
+                }
+            }
+        })
+    }
+
     async addPost(data: AddPostDTO){
         return this.prismaService.post.create({
             data:{

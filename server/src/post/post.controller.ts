@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { PostService } from './post.service';
 import { AddPostDTO } from './dto/add.post.dto';
 import { UpdatePostDTO } from './dto/update.post.dto';
@@ -7,7 +7,10 @@ import { UpdatePostDTO } from './dto/update.post.dto';
 export class PostController {
     constructor(private postService: PostService){}
     @Get("")
-    getPosts(){
+    getPosts(@Query("title") query?: string){
+        if(query){
+            return this.postService.getPostByTitle(query)
+        }
         return this.postService.getPosts()
     }
 
