@@ -9,12 +9,17 @@ export default function UserPage() {
   const [search, setSearch] = useState<string>("");
   const [user, setUser] = useState<user[]>([]);
   async function getUser() {
-    const data = await userApi.getUsers();
+    var data: any = [];
+    if (search) {
+      data = await userApi.getUserByName(search);
+    } else {
+      data = await userApi.getUsers();
+    }
     setUser(data);
   }
   useEffect(() => {
     getUser();
-  }, []);
+  }, [search]);
 
   return (
     <div className="w-full">
@@ -33,7 +38,7 @@ export default function UserPage() {
           />
         </div>
         <MyTable
-          header={["id", "name", "email"]}
+          header={["id", "name", "email", "actions"]}
           contentType="user"
           content={user}
         />

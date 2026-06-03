@@ -10,14 +10,21 @@ export default function PostPage() {
   const [post, setPost] = useState<post[]>([]);
 
   async function getPost() {
-    const data = await postApi.getPosts();
+    var data: any = [];
+    if (search) {
+      data = await postApi.getPostByTitle(search);
+    } else {
+      data = await postApi.getPosts();
+    }
     console.log(data);
     setPost(data);
   }
 
   useEffect(() => {
     getPost();
-  }, []);
+  }, [search]);
+
+  console.log(search);
 
   return (
     <div className="w-full">
@@ -36,7 +43,7 @@ export default function PostPage() {
           />
         </div>
         <MyTable
-          header={["id", "title", "content", "published", "author", "action"]}
+          header={["id", "title", "content", "published", "author", "actions"]}
           contentType="post"
           content={post}
         />
