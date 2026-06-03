@@ -25,6 +25,13 @@ export class PostService {
                 title:{
                     contains: data,
                     mode: "insensitive"
+                },
+            },
+            include: {
+                author:{
+                    select:{
+                        name: true
+                    }
                 }
             }
         })
