@@ -14,6 +14,7 @@ export default function UserPage() {
   async function getUser() {
     var data: any = [];
     if (search) {
+      setIsLoading(true);
       data = await userApi.getUserByName(search);
     } else {
       data = await userApi.getUsers();

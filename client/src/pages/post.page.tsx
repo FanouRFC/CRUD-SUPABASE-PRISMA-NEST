@@ -14,6 +14,7 @@ export default function PostPage() {
   async function getPost() {
     var data: any = [];
     if (search) {
+      setIsLoading(true);
       data = await postApi.getPostByTitle(search);
     } else {
       data = await postApi.getPosts();
