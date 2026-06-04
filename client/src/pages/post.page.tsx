@@ -5,6 +5,8 @@ import type { post } from "../types/tableType";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
+import { Button } from "@/components/ui/button";
+import { Link, useNavigate } from "react-router";
 
 export default function PostPage() {
   const [search, setSearch] = useState<string>("");
@@ -46,6 +48,14 @@ export default function PostPage() {
             }}
           />
         </div>
+        <Link to={"/addPost"} className="self-end">
+          <Button
+            type="button"
+            className="cursor-pointer bg-blue-500 w-50 rounded "
+          >
+            Nouveau post
+          </Button>
+        </Link>
         {isLoading ? (
           <div className="flex justify-center">
             <Spinner className=" size-15" />

@@ -5,6 +5,8 @@ import { userApi } from "@/api/user.api";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 
 export default function UserPage() {
   const [search, setSearch] = useState<string>("");
@@ -42,6 +44,14 @@ export default function UserPage() {
             }}
           />
         </div>
+        <Link to={"/addUser"} className="self-end">
+          <Button
+            type="button"
+            className="cursor-pointer bg-blue-500 w-50 rounded "
+          >
+            Nouveau User
+          </Button>
+        </Link>
         {isLoading ? (
           <div className="flex justify-center">
             <Spinner className=" size-15" />
