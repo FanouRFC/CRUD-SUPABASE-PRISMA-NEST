@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 import { Input } from "@base-ui/react";
+import { postApi } from "@/api/post.api";
+import { userApi } from "@/api/user.api";
 
 type MyTableProps = {
   header: string[];
@@ -45,7 +47,7 @@ export default function MyTable({
                 <td className="border px-2 flex justify-center">
                   <div className="flex flex-row gap-1">
                     <DialogEdit type={contentType} />
-                    <DialogDelete type={contentType} />
+                    <DialogDelete type={contentType} id={parseInt(u.id)} />
                   </div>
                 </td>
               </tr>
@@ -63,7 +65,7 @@ export default function MyTable({
               <td className="border px-2 flex justify-center">
                 <div className="flex flex-row gap-1">
                   <DialogEdit type={contentType} />
-                  <DialogDelete type={contentType} />
+                  <DialogDelete type={contentType} id={parseInt(p.id)} />
                 </div>
               </td>
             </tr>
@@ -74,7 +76,24 @@ export default function MyTable({
   );
 }
 
-export function DialogDelete({ type }: DialogProps) {
+type DialogDeleteProps = {
+  type: "user" | "post";
+  id: number;
+};
+
+export function DialogDelete({ type, id }: DialogDeleteProps) {
+  async function deleteData() {
+    try {
+      if (type == "post") {
+        const req = await postApi.deletePost(id);
+      } else {
+        const req = await userApi.deleteUser(id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Dialog>
       <DialogTrigger
@@ -108,6 +127,9 @@ export function DialogDelete({ type }: DialogProps) {
               <Button
                 type="button"
                 className="cursor-pointer bg-red-400 text-black"
+                onClick={async () => {
+                  deleteData();
+                }}
               >
                 Confirmer
               </Button>
@@ -119,11 +141,11 @@ export function DialogDelete({ type }: DialogProps) {
   );
 }
 
-type DialogProps = {
+type DialogEditProps = {
   type: "user" | "post";
 };
 
-export function DialogEdit({ type }: DialogProps) {
+export function DialogEdit({ type }: DialogEditProps) {
   return (
     <Dialog>
       <DialogTrigger
