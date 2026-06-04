@@ -4,9 +4,11 @@ import { useEffect, useState, type ChangeEvent } from "react";
 import type { post } from "../types/tableType";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function PostPage() {
   const [search, setSearch] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [post, setPost] = useState<post[]>([]);
 
   async function getPost() {
@@ -17,6 +19,7 @@ export default function PostPage() {
       data = await postApi.getPosts();
     }
     console.log(data);
+    setIsLoading(false);
     setPost(data);
   }
 
@@ -42,11 +45,24 @@ export default function PostPage() {
             }}
           />
         </div>
-        <MyTable
-          header={["id", "title", "content", "published", "author", "actions"]}
-          contentType="post"
-          content={post}
-        />
+        {isLoading ? (
+          <div className="flex justify-center">
+            <Spinner className=" size-15" />
+          </div>
+        ) : (
+          <MyTable
+            header={[
+              "id",
+              "title",
+              "content",
+              "published",
+              "author",
+              "actions",
+            ]}
+            contentType="post"
+            content={post}
+          />
+        )}
       </div>
     </div>
   );

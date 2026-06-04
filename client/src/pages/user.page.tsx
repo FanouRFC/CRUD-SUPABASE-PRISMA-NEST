@@ -4,10 +4,13 @@ import type { user } from "../types/tableType";
 import { userApi } from "@/api/user.api";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function UserPage() {
   const [search, setSearch] = useState<string>("");
   const [user, setUser] = useState<user[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   async function getUser() {
     var data: any = [];
     if (search) {
@@ -15,6 +18,7 @@ export default function UserPage() {
     } else {
       data = await userApi.getUsers();
     }
+    setIsLoading(false);
     setUser(data);
   }
   useEffect(() => {
@@ -37,11 +41,17 @@ export default function UserPage() {
             }}
           />
         </div>
-        <MyTable
-          header={["id", "name", "email", "actions"]}
-          contentType="user"
-          content={user}
-        />
+        {isLoading ? (
+          <div className="flex justify-center">
+            <Spinner className=" size-15" />
+          </div>
+        ) : (
+          <MyTable
+            header={["id", "name", "email", "actions"]}
+            contentType="user"
+            content={user}
+          />
+        )}
       </div>
     </div>
   );
