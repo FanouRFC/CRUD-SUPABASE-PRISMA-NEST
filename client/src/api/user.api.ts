@@ -1,3 +1,4 @@
+import type { user } from "@/types/tableType"
 import { axiosConfig } from "../config/axios"
 
 export const userApi = {
@@ -6,6 +7,9 @@ export const userApi = {
     },
     async getUserByName(name: string){
         return (await axiosConfig.get("/user", {params:{name}})).data
+    },
+    async addUser(data: Omit<user, "id">){
+        return (await axiosConfig.post("/user", data)).data
     },
     async deleteUser(id: number){
         return(await axiosConfig.delete(`/user/${id}`)).data

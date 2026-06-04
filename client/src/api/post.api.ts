@@ -1,4 +1,12 @@
+import type { post } from "@/types/tableType"
 import { axiosConfig } from "../config/axios"
+
+type postApiData = {
+  authorId: number;
+  content: string;
+  title: string;
+  published: boolean
+};
 
 export const postApi = {
     async getPosts(){
@@ -6,6 +14,9 @@ export const postApi = {
     },
     async getPostByTitle(title: string){
         return (await axiosConfig.get("/post", {params:{title}})).data
+    },
+    async addPost(data: postApiData){
+        return (await axiosConfig.post("/post", data)).data
     },
     async deletePost(id: number){
         return(await axiosConfig.delete(`/post/${id}`)).data
